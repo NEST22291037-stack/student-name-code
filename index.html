@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Grade Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        max-width: 500px;
+        margin: 20px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #ccc;
+      }
+      h2, h3 {
+        text-align: center;
+        color: #333;
+      }
+      label {
+        display: block;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      #result {
+        display: none;
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #e9ecef;
+        border-radius: 5px;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      li {
+        background: #f8f9fa;
+        padding: 12px;
+        margin-top: 10px;
+        border-radius: 5px;
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>User form</h2>
+      <form id="userForm">
+        <label for="name">Student name</label>
+        <input id="name" name="name" required />
+
+        <label for="first">1st semester</label>
+        <input id="first" name="first" type="number" required />
+
+        <label for="second">2nd semester</label>
+        <input id="second" name="second" type="number" required />
+
+        <label for="third">3rd semester</label>
+        <input id="third" name="third" type="number" required />
+
+        <button type="button" onclick="calculateGrade()">Calculate</button>
+      </form>
+
+      <div id="result">
+        <p id="nameResult"></p>
+        <p id="averageResult"></p>
+        <p id="gradeResult"></p>
+      </div>
+
+      <h3>User list</h3>
+      <ul id="userList"></ul>
+    </div>
+
+    <script>
+      function calculateGrade() {
+        let name = document.getElementById("name").value.trim();
+        let firstVal = document.getElementById("first").value;
+        let secondVal = document.getElementById("second").value;
+        let thirdVal = document.getElementById("third").value;
+
+        if (name === "") {
+          alert("Enter student name!");
+          return;
+        }
+
+        if (firstVal === "" || secondVal === "" || thirdVal === "") {
+          alert("Enter all scores!");
+          return;
+        }
+
+        let first = Number(firstVal);
+        let second = Number(secondVal);
+        let third = Number(thirdVal);
+
+        if (
+          first < 0 || first > 100 ||
+          second < 0 || second > 100 ||
+          third < 0 || third > 100
+        ) {
+          alert("Enter numbers between 0-100!");
+          return;
+        }
+
+        let average = (first + second + third) / 3;
+        let grade;
+
+        if (average >= 90) {
+          grade = "A";
+        } else if (average >= 80) {
+          grade = "B";
+        } else if (average >= 70) {
+          grade = "C";
+        } else if (average >= 60) {
+          grade = "D";
+        } else {
+          grade = "F";
+        }
+
+        document.getElementById("nameResult").innerText = "Student name: " + name;
+        document.getElementById("averageResult").innerText = "Average result: " + average.toFixed(2);
+        document.getElementById("gradeResult").innerText = "Grade: " + grade;
+        document.getElementById("result").style.display = "block";
+      }
+    </script>
+  </body>
+</html>
